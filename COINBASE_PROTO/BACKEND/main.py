@@ -120,5 +120,5 @@ def get_all_transaction_history():
 
 if __name__ == "__main__":
     CORS(app)
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5000, host="192.168.0.239")
 

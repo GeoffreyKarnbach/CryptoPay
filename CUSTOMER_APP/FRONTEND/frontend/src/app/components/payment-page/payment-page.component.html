@@ -1,0 +1,24 @@
+<p>payment-page works!</p>
+
+<video
+id="qr_scanner"
+autoPlay={true}
+playsInline={true}
+muted={true}
+autoplay
+></video>
+
+<div fxFlex="100" style="display:none">
+  <canvas class="video" id="canvas" #canvas></canvas>
+</div>
+
+<br>
+
+<button *ngIf="qrCodeData.length > 0">
+  <a href="{{targetTransferURL}}" target="_blank" rel="noopener noreferrer">
+    Transfer {{qrCodeAmount}} to wallet: {{qrCodeDestinationWallet}}
+  </a>
+</button>
+
+<button *ngIf="qrCodeData.length > 0" (click)="resetScan()">Rescan QR Code</button>
+

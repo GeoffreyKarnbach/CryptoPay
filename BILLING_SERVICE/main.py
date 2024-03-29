@@ -19,7 +19,7 @@ transactions_per_customers = {
 
 }
 
-target_request_url = "http://127.0.0.1:5000/api/v1/transaction/history?wallet_id="
+target_request_url = "http://192.168.0.239:5000/api/v1/transaction/history?wallet_id="
 
 @app.route('/api/v1/customer', methods=['POST'])
 def add_customer():
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     # Create a new thread that runs the flask app
     schedule.every(10).seconds.do(billing_tracking_job)
 
-    t = threading.Thread(target=app.run, kwargs={'port': 5001})
+    t = threading.Thread(target=app.run, kwargs={'port': 5005, 'host': '192.168.0.239'})
     t.start()
 
     while True:

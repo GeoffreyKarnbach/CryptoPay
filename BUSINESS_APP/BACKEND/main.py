@@ -35,7 +35,7 @@ transactions = []
 def get_all_transactions_for_customer():
     wallet_id = request.args.get('wallet_id')
 
-    target_request_url = "http://127.0.0.1:5000/api/v1/transaction/history?wallet_id=" + wallet_id
+    target_request_url = "http://192.168.0.239:5000/api/v1/transaction/history?wallet_id=" + wallet_id
     response = requests.get(target_request_url)
     return response.json()
 
@@ -46,7 +46,7 @@ def check_payment_is_confirmed():
     to_wallet_id = request.form.get('to_wallet_id')
     amount = request.form.get('amount')
 
-    target_request_url = "http://127.0.0.1:5000/api/v1/transaction/history?wallet_id=" + to_wallet_id
+    target_request_url = "http://192.168.0.239:5000/api/v1/transaction/history?wallet_id=" + to_wallet_id
     response = requests.get(target_request_url)
     if response.status_code != 200:
         return jsonify({'error': 'Target wallet not found'}), 404
@@ -78,7 +78,7 @@ def register_customer():
         if customer.wallet_id == request.form.get("wallet_id"):
             return jsonify({'message' : 'Logged in successfully', 'wallet_id': customer.wallet_id}), 200
     
-    target_request_url = "http://127.0.0.1:5000/api/v1/wallet?wallet_id=" + new_customer.wallet_id
+    target_request_url = "http://192.168.0.239:5000/api/v1/wallet?wallet_id=" + new_customer.wallet_id
     response = requests.get(target_request_url)
     if response.status_code != 200:
         return jsonify({'error': 'Wallet not found, cannot login'}), 404
@@ -118,5 +118,5 @@ def get_qr_code():
 
 if __name__ == "__main__":
     CORS(app)
-    app.run(debug=True, port=5002)
+    app.run(debug=True, port=5001, host="192.168.0.239")
 
