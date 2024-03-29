@@ -1,0 +1,13 @@
+<div *ngIf="!loggedIn">
+  <input type="text" placeholder="Wallet ID" [(ngModel)]="walletId" style="margin-right: 1em;">
+  <button (click)="confirmLogin()">LOGIN</button>
+</div>
+
+<div *ngIf="loggedIn">
+  <h2><u>Welcome, {{walletId}}!</u></h2>
+  <a [routerLink]="['transaction']">New Transaction</a>
+  <br>
+  <br>
+  <button (click)="logout()">LOGOUT</button>
+</div>
+

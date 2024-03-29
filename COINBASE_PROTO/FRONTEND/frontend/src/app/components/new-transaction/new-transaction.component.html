@@ -1,0 +1,17 @@
+<div>
+  <h4>Logged in as {{originWallet}}</h4>
+  <div>
+    <label for="destinationWallet" style="margin-right: 1em;">Destination Wallet</label>
+    <input type="text" id="destinationWallet" [(ngModel)]="targetWallet">
+    <br><br>
+    <label for="amount" style="margin-right: 1em;">Amount</label>
+    <input type="number" id="amount" [(ngModel)]="amount">
+    <br><br>
+    <div *ngIf="pendingTransaction">
+      <img src="assets/loading.gif" alt="loading">
+    </div>
+    <div *ngIf="!pendingTransaction">
+      <button (click)="confirmTransaction()">SEND</button>
+    </div>
+  </div>
+</div>

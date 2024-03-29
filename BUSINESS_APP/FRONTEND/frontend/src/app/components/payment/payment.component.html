@@ -1,0 +1,31 @@
+<h3>PAYMENT PAGE</h3>
+
+<div *ngIf="loggedIn">
+  <div *ngIf="!showQRCode">
+    <input type="number" [(ngModel)]="amount" placeholder="Amount" style="margin: 1em;">
+    <button (click)="getQrCode()" style="margin: 1em;">GET QR CODE</button>
+  </div>
+
+  <div *ngIf="showQRCode">
+    <img [src]="qrCode" alt="QR Code" style="width: 300px; height: 300px;">
+    <p>WALLET ID: <b>{{wallet_id}}</b></p>
+    <p>AMOUNT: <b>{{amount}}</b></p>
+    <!-- TODO: Add client QR Code Scanner + Verify Transaction has taken place -->
+    <div style="border: 1px solid black; padding: 1em;" *ngIf="!confirmed_payment">
+      <p>TODO: Add QR Code Scanner from customer QR Code</p>
+      <br>
+      <input type="text" [(ngModel)]="customer_wallet_id" placeholder="Customer Wallet ID">
+      <button (click)="verifyTransaction()" style="margin: 1em;">VERIFY COMPLETED TRANSACTION</button>
+      <p *ngIf="confirmed_payment_rejected" style="color: red;">Transaction not confirmed</p>
+    </div>
+    <div *ngIf="confirmed_payment" style="margin-left: 2em;">
+      <img src="assets/green_check.png" alt="Transaction Confirmed" style="width: 100px; height: 100px;">
+      <p style="color: green;">Transaction Confirmed</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loggedIn">
+  <p>Please login to access this page</p>
+  <button [routerLink]="['/register']">LOGIN</button>
+</div>

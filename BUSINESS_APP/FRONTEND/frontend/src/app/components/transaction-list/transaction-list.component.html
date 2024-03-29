@@ -1,0 +1,14 @@
+<div *ngIf="loggedIn">
+  <div style="border: 1px solid black;" *ngFor="let transaction of pastTransactions">
+    <p>{{transaction.id}}</p>
+    <p>{{transaction.amount}}</p>
+    <p>{{transaction.timestamp}}</p>
+    <p>{{transaction.from_wallet_id}}</p>
+    <p>{{transaction.to_wallet_id}}</p>
+  </div>
+</div>
+
+<div *ngIf="!loggedIn">
+  <p>Please login to access this page</p>
+  <button [routerLink]="['/register']">LOGIN</button>
+</div>
