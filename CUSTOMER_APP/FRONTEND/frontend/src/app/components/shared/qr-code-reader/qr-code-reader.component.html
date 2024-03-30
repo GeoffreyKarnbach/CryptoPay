@@ -1,0 +1,13 @@
+<video
+  id="qr_scanner"
+  autoPlay={true}
+  playsInline={true}
+  muted={true}
+  autoplay>
+</video>
+
+<div fxFlex="100" style="display:none">
+  <canvas class="video" id="canvas" #canvas></canvas>
+</div>
+
+<button *ngIf="qrCodeData.length > 0" (click)="resetScan()">Rescan QR Code</button>
