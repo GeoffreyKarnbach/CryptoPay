@@ -49,5 +49,3 @@ In a concrete implementation, several cryptocurrency provider can be supported a
 #### Customer App:
 
 Frontend, related to the web-application that the sellpoints would use. The Frontend is written with Typescript and Angular. The application is able to read a QR code from another device currently serving the business app, and therefore redirect the user to the frontend of the Coinbase_Proto (or any actual cryptocurrency providers, such as Coinbase). Furthermore, the customer app can also display a QR Code of the wallet ID of the customer, allowing the business app to know, which wallet ID to expect the payment from.
-
-# DISCLAIMER: A newer version of the MVP with further functionality has yet to be pushed to GitHub. The functionality will be described in the readme file as well.
