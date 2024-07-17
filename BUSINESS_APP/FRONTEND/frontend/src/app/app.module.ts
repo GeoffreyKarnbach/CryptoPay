@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { QrCodeReaderComponent } from './components/shared/qr-code-reader/qr-code-reader.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
     RegisterComponent,
     PaymentComponent,
     TransactionListComponent,
-    NavbarComponent
+    NavbarComponent,
+    QrCodeReaderComponent
   ],
   imports: [
     BrowserModule,

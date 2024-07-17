@@ -1,10 +1,27 @@
-<p>payment-page works!</p>
+<div *ngIf="loggedIn">
+  <h1>Payment page</h1>
+  <h3>Logged in with Wallet ID: <u>{{wallet_id}}</u>!</h3>
+  <app-qr-code-reader (qrCodeDataEvent)="foundQrCode($event)" (qrCodeDataResetEvent)="resetQrCode()"></app-qr-code-reader>
+  <br>
+  <br>
+  <button *ngIf="qrCodeData.length > 0">
+    <a href="{{targetTransferURL}}" target="_blank" rel="noopener noreferrer">
+      Transfer {{qrCodeAmount}} to wallet: {{qrCodeDestinationWallet}}
+    </a>
+  </button>
+  <br>
+  <br>
+  <button *ngIf="!showQrCode" (click)="switchShowQrCodeForWalletId()">Show my Wallet ID QR Code</button>
+  <div *ngIf="showQrCode" style="border:1px solid black; width: max-content;">
+    <img [src]="qrCodeImageForWalletId" alt="Wallet ID QR Code">
+    <br>
+    <button (click)="switchShowQrCodeForWalletId()" style="margin: 1em;">Hide my Wallet ID QR Code</button>
+</div>
 
-<app-qr-code-reader (qrCodeDataEvent)="foundQrCode($event)" (qrCodeDataResetEvent)="resetQrCode()"></app-qr-code-reader>
+<div *ngIf="!loggedIn">
+  <h3>Not logged in!</h3>
+  <button [routerLink]="['/']">Go to start page</button>
+</div>
 
-<button *ngIf="qrCodeData.length > 0">
-  <a href="{{targetTransferURL}}" target="_blank" rel="noopener noreferrer">
-    Transfer {{qrCodeAmount}} to wallet: {{qrCodeDestinationWallet}}
-  </a>
-</button>
+
 

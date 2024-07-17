@@ -15,6 +15,14 @@ export class PaymentComponent {
       this.wallet_id = localStorage.getItem('wallet_id') || '';
       this.loggedIn = true;
     }
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      // true for mobile device
+      this.isMobileDevice = true;
+    }else{
+      // false for not mobile device
+      this.isMobileDevice = false;
+    }
   }
 
   loggedIn: boolean = false;
@@ -26,6 +34,11 @@ export class PaymentComponent {
   customer_wallet_id: string = '';
   confirmed_payment: boolean = false;
   confirmed_payment_rejected: boolean = false;
+
+  activeClientQRCodeScanning: boolean = false;
+  isMobileDevice: boolean = false;
+  activeTransactionVerification: boolean = false;
+  limitTransactionVerificationAttempts: number = 3;
 
   getQrCode(): any {
 
@@ -45,10 +58,39 @@ export class PaymentComponent {
     this.paymentService.verifyPayment(this.customer_wallet_id, this.wallet_id, this.amount).subscribe(
       (data) => {
         this.confirmed_payment = true;
+        this.activeTransactionVerification = false;
       },
       (error) => {
-        this.confirmed_payment_rejected = true;
+        if (this.limitTransactionVerificationAttempts > 0) {
+          this.limitTransactionVerificationAttempts--;
+          setTimeout(() => {
+            this.verifyTransaction();
+          }, 1000);
+        } else {
+          this.confirmed_payment_rejected = true;
+          this.activeTransactionVerification = false;
+        }
       }
     );
+  }
+
+  startTransactionVerification(): any {
+    this.limitTransactionVerificationAttempts = 10;
+    this.activeTransactionVerification = true;
+    this.verifyTransaction();
+  }
+
+  startScanningClientQrCode(): any {
+    this.activeClientQRCodeScanning = true;
+  }
+
+  newQrCodeEvent(event: any): any {
+    this.customer_wallet_id = event;
+    this.activeClientQRCodeScanning = false;
+  }
+
+  resetQrCodeEvent(): any {
+    this.customer_wallet_id = '';
+    this.activeClientQRCodeScanning = false;
   }
 }

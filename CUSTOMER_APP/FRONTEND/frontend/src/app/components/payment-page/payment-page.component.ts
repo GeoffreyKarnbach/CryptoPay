@@ -1,5 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import jsQR, { QRCode } from 'jsqr';
+import { Component } from '@angular/core';
+import { QrCodeServiceService } from 'src/app/services/qr-code-service.service';
 
 @Component({
   selector: 'app-payment-page',
@@ -8,13 +8,36 @@ import jsQR, { QRCode } from 'jsqr';
 })
 export class PaymentPageComponent {
 
-  constructor() { }
+  constructor(private qrCodeService: QrCodeServiceService) { }
 
   qrCodeData: string = '';
 
   qrCodeDestinationWallet: string = '';
   qrCodeAmount: string = '';
   targetTransferURL: string = '';
+
+  loggedIn: boolean = false;
+  wallet_id: string = '';
+  qrCodeImageForWalletId: string = '';
+  showQrCode: boolean = false;
+
+  ngOnInit(): void {
+    if (localStorage.getItem('wallet_id')) {
+      this.wallet_id = localStorage.getItem('wallet_id') || '';
+      this.loggedIn = true;
+    }
+
+    /*
+    this.qrCodeService.getQrCode(this.wallet_id).subscribe((response) => {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.qrCodeImageForWalletId = event.target.result;
+      };
+      reader.readAsDataURL(response);
+    });
+    */
+    this.qrCodeImageForWalletId = "assets/0000001.png";
+  }
 
   foundQrCode(value: string) {
     this.qrCodeData = value;
@@ -28,5 +51,9 @@ export class PaymentPageComponent {
     this.qrCodeDestinationWallet = '';
     this.qrCodeAmount = '';
     this.targetTransferURL = '';
+  }
+
+  switchShowQrCodeForWalletId() {
+    this.showQrCode = !this.showQrCode;
   }
 }

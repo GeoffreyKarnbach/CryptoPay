@@ -1,0 +1,13 @@
+<div *ngIf="!isLoggedId">
+  <input [(ngModel)]="wallet_id" placeholder="Wallet ID" style="margin: 1em;">
+  <br>
+  <button (click)="login()" style="margin: 1em;">REGISTER!</button>
+</div>
+
+<div *ngIf="isLoggedId">
+  <h3>Allready logged in with Walled ID: <u>{{wallet_id}}</u>!</h3>
+  <br>
+  <button [routerLink]="['/payment']" style="margin: 1em;">Go to payment page</button>
+  <br>
+  <button (click)="logout()" style="margin: 1em;">LOGOUT</button>
+</div>
